@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .container {
+           display: flex;
+           justify-content: space-evenly;
+           align-items: center;
+           
+        }
+        .first{
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .second{
+            width: 70%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+      
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        button{
+            padding: 20px 30px;
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+            border: none;
+        }
+        .h{
+            color: saddlebrown;
+        }
+      
+    </style>
+
+</head>
+
+<body>
+    <h1 class="h">Hi , {{username}} start your Workout</h1>
+    <div class="container">
+        <div class="first">
+            <h1>Timing</h1>
+            <div id="timer" >00:00</div><br>
+            <button id="startStopButton">Start</button>
+            <p>You want to complete the round within 1 minutes</p>
+            <div style="color: red;" id="result"></div>
+        </div>
+       
+        <div class="second">
+            <h1>Cycling</h1>
+            <p>Running is a form of aerobic exercise that involves the rapid movement of your legs, propelling you forward at a pace faster than walking. It is a simple and effective way to improve your cardiovascular health, boost your mood, and increase your overall fitness level.</p>
+            
+            <h2>Benefits of Cycling</h2>
+            <ul>
+                <br><br><br>
+                <li>Improves cardiovascular health and reduces the risk of heart diseases.</li>
+                <li>Strengthens leg muscles and increases overall stamina.</li>
+                <li>Helps in weight management by burning calories and boosting metabolism.</li>
+                <li>Reduces stress and anxiety levels while promoting mental well-being.</li>
+                <li>Improves joint mobility and flexibility.</li>
+                
+            </ul>
+            </div> 
+    </div>
+    
+
+    <script>
+        let timer;
+        let startTime;
+        let running = false;
+
+        function startStop() {
+            if (!running) {
+                startTime = Date.now();
+                timer = setInterval(updateTimer, 1000);
+                document.getElementById('startStopButton').innerText = 'Stop';
+                running = true;
+            } else {
+                clearInterval(timer);
+                document.getElementById('startStopButton').innerText = 'Start';
+                running = false;
+                calculateResult();
+            }
+        }
+
+        function updateTimer() {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsedTime / 60);
+            const seconds = elapsedTime % 60;
+            document.getElementById('timer').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function calculateResult() {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            if (elapsedTime <= 60) {
+                document.getElementById('result').innerText = 'You win! +1 point';
+                updateLeaderboard("Cycling");
+            } else {
+                document.getElementById('result').innerText = 'You lose! 0 points';
+            }
+        }
+
+        function updateLeaderboard(value) {
+            fetch('/update_leaderboard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ value: value })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById('startStopButton').addEventListener('click', startStop);
+    </script>
+</body>
+
+</html>

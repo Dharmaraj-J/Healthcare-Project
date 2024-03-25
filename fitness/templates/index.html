@@ -1,0 +1,137 @@
+{% load static %}
+
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FITNESSAPP</title>
+    <link rel="stylesheet" href="{% static 'index.css' %}">
+    <script type="text/javascript" src="https://unpkg.com/webcam-easy/dist/webcam-easy.min.js"></script>
+</head>
+<body>
+    <header>
+        {% if messages %}
+        <div class="messages" style=" color:black;">
+            {% for message in messages %}
+            <p class="{{ message.tags }}">{{ message }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </header>
+
+    <div class="wrapper">
+      
+        <div class="header">
+
+            <div class="logo">
+
+                FITAPP
+                
+            </div>
+
+            <div class="menu">
+
+                <div class="menu-content">
+                    <a  style="
+                    color:white;
+                    "
+                    href="loginpage">Login</a>
+
+                </div>
+                <div class="menu-content">
+                    <a  style="
+                    color:white;
+                    "
+                    href="signup" >Signup</a>
+                </div>
+
+            </div>
+            
+        </div>
+        <div class="hero-page"> 
+
+            <div class="main-text">
+                One step towards a healthy lifestyle
+            </div>
+            <div class="sub-text">
+                Healthy body is the secret of healthy lifestyle. Start your day with  FITAPP
+            </div>
+            <div class="get-start-button">
+               <a href="/loginpage" style="text-decoration: none;">Get started</a>
+            </div>
+            
+        </div>
+        <div>
+          <div class="img-1-content">
+            <div>
+            <img src="{% static 'undraw_Healthy_habit_re_sy1e.png' %}" alt="" width="350px" height="300px"></div>
+              <div class="img-1-text">
+                 <h1>Start Your Fitness Journey</h1>
+              
+                 <p> We encourage you to take your fitness journey one step at a time, and we don't subscribe to a "no pain, no gain" mindset. We offer realistic guidance — no quick-fixes because they just simply do not work.</p>
+              </div>
+          </div>> 
+
+          <div class="img-2-content">
+            <div>
+            <img src="{% static 'undraw_fitness_tracker_3033.png' %}" alt="" width="350px" height="300px"></div>
+              <div class="img-1-text">
+                 <h1>Share your Acheivements</h1>
+              
+                 <p> We encourage you to take your fitness journey one step at a time, and we don't subscribe to a "no pain, no gain" mindset. We offer realistic guidance — no quick-fixes because they just simply do not work.</p>
+              </div>
+          </div>> 
+
+          <!-- <div class="img-2-content">
+            <div>
+            <img src="{% static 'undraw_Gifts_0ceh.png' %}" alt="" width="350px" height="300px"></div>
+              <div class="img-1-text">
+                 <h1>Get Free Rewards</h1>
+              
+                 <p> We encourage you to take your fitness journey one step at a time, and we don't subscribe to a "no pain, no gain" mindset. We offer realistic guidance — no quick-fixes because they just simply do not work.</p>
+              </div>
+          </div> -->
+
+          <div class="img-2-content">
+            <div>
+            <img src="{% static 'undraw_Healthy_habit_re_sy1e.png' %}" alt="" width="350px" height="300px"></div>
+              <div class="img-1-text">
+                 <h1>Set Easy Reminders</h1>
+              
+                 <p> We encourage you to take your fitness journey one step at a time, and we don't subscribe to a "no pain, no gain" mindset. We offer realistic guidance — no quick-fixes because they just simply do not work.</p>
+              </div>
+          </div>> 
+
+    </div>
+    <div class="footer">
+        <div class="container-1">
+              <h1 style="color:#2354E4 ;">  FITAPP</h1>
+              <p id="moxifit-footer">fitapp was esatablished with one main goal in mind. tp promoe abitious fitnesss and health throughthe mordern world of internet</p>
+        </div>
+        <div class="container-1">
+                <h1>Services</h1>
+                <p id="moxifit-footer" >fitness sreakes</p>
+                <p id="moxifit-footer" >leading consistancy</p>
+                <p id="moxifit-footer" >coupons and rewards</p>
+        </div>
+        <div class="container-1">
+            <h1>Contact</h1>
+            <p id="moxifit-footer" >Trivhy,India </p>
+            <p id="moxifit-footer" >fitapp.com</p>
+            <p id="moxifit-footer" >046512345</p>   
+        </div>
+        <div class="container-1">
+            <h1>Weekly Updates</h1>
+            <p id="moxifit-footer" >to get weekly updates from us, you can send your emails which covers fitness and advice </p>
+            <form>
+                <input type="email" placeholder="Enter your email " name="email">
+                <button type="submit">Submit</button>  
+            </form>
+
+        </div>
+
+    </div>
+</body>
+</html>

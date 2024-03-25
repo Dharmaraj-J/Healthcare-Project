@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <style>
+        .container {
+           display: flex;
+           justify-content: space-evenly;
+           align-items: center;
+           
+        }
+        .first{
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .second{
+            width: 70%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+      
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        p {
+            line-height: 1.6;
+            color: #555;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        button{
+            padding: 20px 30px;
+            background-color: blue;
+            color: white;
+            border-radius: 10px;
+            border: none;
+        }
+        .h{
+            color: saddlebrown;
+        }
+      
+    </style>
+
+</head>
+
+<body>
+    <h1 class="h">Hi , {{username}} start your Workout</h1>
+    <div class="container">
+        <div class="first">
+            <h1>Timing</h1>
+            <div id="timer" >00:00</div><br>
+            <button id="startStopButton">Start</button>
+            <p>You want to complete the round within 1 minutes</p>
+            <div style="color: red;" id="result"></div>
+        </div>
+       
+        <div class="second">
+        <h1>Running</h1>
+        <p>Running is a form of aerobic exercise that involves the rapid movement of your legs, propelling you forward at a pace faster than walking. It is a simple and effective way to improve your cardiovascular health, boost your mood, and increase your overall fitness level.</p>
+        
+        <h2>Benefits of Running:</h2>
+        <ul>
+            <li><strong>Improved Cardiovascular Health:</strong> Regular running strengthens the heart, lowers blood pressure, and improves circulation, reducing the risk of heart disease.</li>
+            <li><strong>Weight Loss:</strong> Running burns a significant amount of calories, making it an effective way to lose weight and maintain a healthy body composition.</li>
+            <li><strong>Enhanced Mood:</strong> Running stimulates the release of endorphins, also known as "feel-good" hormones, which can help reduce stress, anxiety, and symptoms of depression.</li>
+            <li><strong>Increased Stamina and Endurance:</strong> By challenging your body's limits, running helps improve stamina, endurance, and overall physical performance.</li>
+            <li><strong>Stronger Bones and Joints:</strong> Regular running can help strengthen bones and joints, reducing the risk of osteoporosis and improving overall joint health.</li>
+            <li><strong>Improved Sleep Quality:</strong> Engaging in regular physical activity like running can promote better sleep patterns and quality of sleep.</li>
+        </ul>
+        </div> 
+    </div>
+    
+
+    <script>
+        let timer;
+        let startTime;
+        let running = false;
+
+        function startStop() {
+            if (!running) {
+                startTime = Date.now();
+                timer = setInterval(updateTimer, 1000);
+                document.getElementById('startStopButton').innerText = 'Stop';
+                running = true;
+            } else {
+                clearInterval(timer);
+                document.getElementById('startStopButton').innerText = 'Start';
+                running = false;
+                calculateResult();
+            }
+        }
+
+        function updateTimer() {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            const minutes = Math.floor(elapsedTime / 60);
+            const seconds = elapsedTime % 60;
+            document.getElementById('timer').innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function calculateResult() {
+            const elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+            if (elapsedTime <= 60) {
+                document.getElementById('result').innerText = 'You win! +1 point';
+                updateLeaderboard("Running");
+            } else {
+                document.getElementById('result').innerText = 'You lose! 0 points';
+            }
+        }
+
+        function updateLeaderboard(value) {
+            fetch('/update_leaderboard', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ value: value })
+            })
+                .then(response => response.json())
+                .then(data => console.log(data))
+                .catch(error => console.error('Error:', error));
+        }
+
+        document.getElementById('startStopButton').addEventListener('click', startStop);
+    </script>
+</body>
+
+</html>

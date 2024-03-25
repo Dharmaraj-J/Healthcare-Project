@@ -1,0 +1,203 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>FitnessApp</title>
+  <link rel="stylesheet" href="{% static 'mainpage.css' %}" />
+  <!-- Font Awesome Cdn Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+</head>
+
+<body>
+  <header>
+    {% if messages %}
+    <div class="messages" style=" color:black;">
+      {% for message in messages %}
+      <p class="{{ message.tags }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+  </header>
+
+  <h1>Welcome {{username}}!</h1>
+
+  <div class="container">
+    <nav>
+      <div class="navbar">
+        <div class="logo">
+          <h1>FITNESS</h1>
+        </div>
+        <ul>
+        <li>
+            <a href="/userview">
+                <img style="width: 50px;
+                display: flex;
+                justify-content: space-around;" src="{% static 'undraw_pic_profile_re_7g2h.svg' %}" alt="User Profile Picture" class="profile-picture">
+                <span class="nav-item"><a href="/userview">{{username}}</a></span>
+            </a>
+        </li>
+          <!-- <li><a href="#">
+            <i class="fas fa-chart-bar"></i>
+            <span class="nav-item"><a href="generate_report">Report</a></span>
+          </a>
+          </li>  -->
+          <li><a href="#">
+              <i class="fas fa-tasks"></i>
+              <span class="nav-item"><a href="/leaderboard_view">Leader Board</a></span>
+            </a>
+          </li>
+          <li><a href="#">
+              <i class="fas fa-sign-out-alt"></i>
+              <span class="nav-item"><a href="/handlelogout">Logout</a></span>
+            </a>
+          </li>
+          <li><a href="#">
+              <i class="fas fa-cog"></i>
+              <span class="nav-item"><a href="set_goal">Set Goal</a></span>
+            </a>
+          </li>
+          <li><a href="#">
+              <i class="fas fa-question-circle"></i>
+              <span class="nav-item"><a href="record_workout">Record Activity</a></span>
+            </a>
+          </li>
+          <!-- <li><a href="#" class="logout">
+            <i class="fas fa-sign-out-alt"></i>
+            <span class="nav-item">Logout</span>
+          </a>
+          </li> -->
+        </ul>
+      </div>
+    </nav>
+
+    <section class="main">
+      <div class="main-top">
+        <p>Workout</p>
+      </div>
+      <div class="main-body">
+        <h1>Activities</h1>
+        <!--      
+      <div class="search_bar">
+        <input type="search" placeholder="Search job here...">
+        <select name="" id="">
+          <option>Category</option>
+          <option>Web Design</option>
+          <option>App Design</option>
+          <option>App Development</option>
+        </select>
+        <select class="filter">
+          <option>Filter</option>
+        </select>
+      </div>
+      <div class="tags_bar">
+        <div class="tag">
+          <i class="fas fa-times"></i>
+          <span>Programming</span>
+        </div>
+        <div class="tag">
+          <i class="fas fa-times"></i>
+          <span>Design</span>
+        </div>
+        <div class="tag">
+          <i class="fas fa-times"></i>
+          <span>PHP</span>
+        </div>
+        <div class="tag">
+          <i class="fas fa-times"></i>
+          <span>JavaScript</span>
+        </div>
+      </div> -->
+        <div class="row">
+          <!-- <p>There are more than <span>400</span> Jobs</p> -->
+          <a href="#">See all</a>
+        </div>
+        <div class="job_card">
+          <div class="job_details">
+            <div class="img">
+              <i class="fas fa-running"></i>
+            </div>
+            <div class="text">
+              <a href="running">
+                <h2>Running</h2>
+              </a>
+              <!-- <span>Google Drive - Junior Post</span> -->
+            </div>
+          </div>
+          <div class="job_salary">
+            <!-- <h4>$6.7 - $12.5k /yr</h4> -->
+            <!-- <span>1 days ago</span> -->
+          </div>
+        </div>
+
+        <div class="job_card">
+          <div class="job_details">
+            <div class="img">
+              <i class="fas fa-biking"></i>
+            </div>
+            <div class="text">
+              <a href="cycling">
+                <h2>Cycling</h2>
+              </a>
+              <!-- <span>Google - Senior Post</span> -->
+            </div>
+          </div>
+          <!-- <div class="job_salary">
+          <h4>$8.7 - $13.2k /yr</h4>
+          <span>2 days ago</span>
+        </div> -->
+        </div>
+        <div class="job_card">
+          <div class="job_details">
+            <div class="img">
+              <i class="fas fa-swimming-pool"></i>
+            </div>
+            <div class="text">
+              <a href="swimming">
+                <h2>Swimming</h2>
+              </a>
+              <!-- <span>Facbook - Manager Post</span> -->
+            </div>
+          </div>
+          <!-- <div class="job_salary">
+          <h4>$11 - $18.5k /yr</h4>
+          <span>2 days ago</span>
+        </div> -->
+        </div>
+        <div class="job_card">
+          <div class="job_details">
+            <div class="img">
+              <i class="fas fa-dumbbell"></i>
+            </div>
+            <div class="text">
+              <a href="gym">
+                <h2>Gym workouts</h2>
+              </a>
+              <span></span>
+            </div>
+          </div>
+          <!-- <div class="job_salary">
+          <h4>$6 - $11.5k /yr</h4>
+          <span>3 days ago</span>
+        </div> -->
+        </div>
+        <!-- <div class="job_card">
+            <div class="job_details">
+            <div class="img">
+                <i class="fab fa-youtube"></i>
+            </div> -->
+        <!-- <div class="text">
+            <h2>React.js Expert</h2>
+            <span>Youtube - VIP</span>
+          </div>
+        </div>
+        <div class="job_salary">
+          <h4>$12.5 - $25.5k /yr</h4>
+          <span>4 days ago</span>
+        </div> -->
+      </div>
+  </div>
+  </section>
+  </div>
+</body>
